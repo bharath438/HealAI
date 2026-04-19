@@ -1,0 +1,131 @@
+{
+  "theme": "Light",
+  "archetype": "1 (Organic & Earthy)",
+  "vibe": "Warm, accessible, trustworthy, grounded, empowering",
+  "colors": {
+    "backgrounds": {
+      "primary": "bg-stone-50",
+      "secondary": "bg-white",
+      "tertiary": "bg-stone-100"
+    },
+    "text": {
+      "primary": "text-stone-900",
+      "secondary": "text-stone-600",
+      "muted": "text-stone-500",
+      "inverse": "text-white"
+    },
+    "modes": {
+      "human_health": {
+        "primary": "bg-sky-600",
+        "primary_hover": "hover:bg-sky-700",
+        "soft_bg": "bg-sky-50",
+        "text": "text-sky-700",
+        "border": "border-sky-200"
+      },
+      "animal_farmer": {
+        "primary": "bg-lime-600",
+        "primary_hover": "hover:bg-lime-700",
+        "soft_bg": "bg-lime-50",
+        "text": "text-lime-700",
+        "border": "border-lime-200"
+      },
+      "ayurveda": {
+        "primary": "bg-amber-600",
+        "primary_hover": "hover:bg-amber-700",
+        "soft_bg": "bg-amber-50",
+        "text": "text-amber-700"
+      },
+      "emergency": {
+        "primary": "bg-orange-600",
+        "primary_hover": "hover:bg-orange-700",
+        "pulse": "animate-pulse shadow-[0_0_15px_rgba(234,88,12,0.5)]"
+      }
+    },
+    "borders": {
+      "subtle": "border-stone-200",
+      "focus": "focus:ring-2 focus:ring-sky-500 focus:outline-none"
+    }
+  },
+  "typography": {
+    "font_families": {
+      "heading": "'Outfit', sans-serif",
+      "body": "'DM Sans', sans-serif"
+    },
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl font-heading font-semibold tracking-tight text-stone-900 leading-tight",
+      "h2": "text-2xl sm:text-3xl font-heading font-medium tracking-tight text-stone-900",
+      "h3": "text-xl font-heading font-medium text-stone-900",
+      "body": "text-base font-body text-stone-600 leading-relaxed",
+      "small": "text-sm font-body text-stone-500",
+      "label": "text-xs font-heading uppercase tracking-[0.15em] text-stone-500 font-medium"
+    }
+  },
+  "layout_and_spacing": {
+    "padding_scale": "p-4, p-6, p-8, p-12",
+    "border_radius": "rounded-2xl (for large cards), rounded-xl (for smaller widgets), rounded-full (for buttons/pills)",
+    "shadows": "shadow-sm for default state, shadow-md for hover state. Avoid heavy shadows to maintain organic feel.",
+    "grids": {
+      "dashboard_bento": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+      "cards": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+    }
+  },
+  "components": {
+    "buttons": "rounded-full px-6 py-2.5 font-medium transition-colors duration-200 ease-in-out",
+    "cards": "bg-white border border-stone-200 rounded-2xl p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1 hover:border-stone-300",
+    "inputs": "bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all",
+    "badges": "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100 text-stone-800",
+    "mode_switcher": "Use Shadcn Tabs. Override background to a soft stone-100. Active tab gets white background with subtle shadow. When Animal mode is active, active tab text becomes lime-700. When Human mode, active text is sky-700.",
+    "timeline": "Vertical line border-l-2 border-stone-200. Timeline items with circular icon markers. Use soft backgrounds for the uploaded report cards.",
+    "chat_ui": "Soft bubble corners (rounded-2xl, except for the tail corner). User: bg-stone-100. Bot: bg-sky-50 (Human) or bg-lime-50 (Animal)."
+  },
+  "motion": {
+    "hover": "transform transition-all duration-300 ease-out",
+    "page_transition": "opacity-0 to opacity-100 over 0.5s",
+    "lists": "staggered entrance animations (Framer Motion) for timeline items and hospital cards"
+  },
+  "media": {
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-width: 1.5, slightly rounded, organic feel. Use text-sky-600 or text-lime-600 depending on mode."
+    },
+    "images": [
+      {
+        "category": "hero_background",
+        "url": "https://images.unsplash.com/photo-1763587239043-47e583ac0cb1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjh8MHwxfHNlYXJjaHwzfHxhYnN0cmFjdCUyMHNhbmQlMjB0ZXh0dXJlJTIwc29mdHxlbnwwfHx8fDE3NzY1NzcxNDh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract warm sand texture, perfect for hero section background with text overlay"
+      },
+      {
+        "category": "farmer_livestock",
+        "url": "https://images.unsplash.com/photo-1707721690619-7658b6058fa6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBmYXJtZXIlMjBjb3d8ZW58MHx8fHwxNzc2NTc3MTQxfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Indian farmer woman with a cow in the field, use in Farmer/Animal mode sections"
+      },
+      {
+        "category": "doctor_patient",
+        "url": "https://images.pexels.com/photos/14558557/pexels-photo-14558557.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Doctor checking patient in clinic, use for Human Health mode and hospital recommendations"
+      },
+      {
+        "category": "ayurveda_herbs",
+        "url": "https://images.pexels.com/photos/20689437/pexels-photo-20689437.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Flat lay of natural ingredients and herbs, use for Ayurveda and holistic medicine sections"
+      },
+      {
+        "category": "modern_hospital",
+        "url": "https://images.unsplash.com/photo-1769147555720-71fc71bfc216?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBob3NwaXRhbCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc3NjU3NzE0OHww&ixlib=rb-4.1.0&q=85",
+        "description": "Modern hospital building, use for Cost Estimator and Hospital Recommendation cards"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Ensure all interactive elements have data-testid attributes.",
+    "Implement a seamless Dual Mode Switcher at the top of the dashboard. When switching between Human and Animal modes, update the primary accent colors globally (Sky Blue -> Moss Green).",
+    "Use 'Outfit' for all headings and 'DM Sans' for body text. Add these via Google Fonts in the HTML head.",
+    "Build the dashboard using a 'Bento Grid' layout. Keep padding generous (p-6 or p-8) and use rounded-2xl to maintain the organic, accessible feel.",
+    "For the Cost Estimator, use horizontal progress bars or charts from Shadcn/Recharts to clearly show Min, Avg, and Max costs for treatments.",
+    "The Government Schemes Engine should be visually distinct (perhaps an amber/ochre accent card) to draw attention to financial aid.",
+    "Implement the Emergency mode button with a pulsing animation using the defined orange/terracotta accent color.",
+    "DO NOT use generic purple/violet gradients. Stick strictly to the organic palette (Sand, Stone, Sky Blue, Moss Green, Terracotta).",
+    "Ensure the UI is responsive and mobile-first, prioritizing touch-friendly targets for rural users.",
+    "Use the provided image URLs exclusively for media. Do not use placeholders."
+  ]
+}
