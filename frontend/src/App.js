@@ -1,54 +1,40 @@
-import { useEffect } from "react";
+import React from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { AppProvider } from "@/context/AppContext";
+import Layout from "@/components/Layout";
+import { Toaster } from "@/components/ui/sonner";
+import DashboardPage from "@/pages/DashboardPage";
+import ChatPage from "@/pages/ChatPage";
+import CostEstimatorPage from "@/pages/CostEstimatorPage";
+import HospitalsPage from "@/pages/HospitalsPage";
+import SchemesPage from "@/pages/SchemesPage";
+import EmergencyPage from "@/pages/EmergencyPage";
+import RecordsPage from "@/pages/RecordsPage";
+import DiagnosePage from "@/pages/DiagnosePage";
+import AyurvedaPage from "@/pages/AyurvedaPage";
+import FarmerModePage from "@/pages/FarmerModePage";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
+export default function App() {
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
-
-function App() {
-  return (
-    <div className="App">
+    <AppProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/cost" element={<CostEstimatorPage />} />
+            <Route path="/hospitals" element={<HospitalsPage />} />
+            <Route path="/schemes" element={<SchemesPage />} />
+            <Route path="/emergency" element={<EmergencyPage />} />
+            <Route path="/records" element={<RecordsPage />} />
+            <Route path="/diagnose" element={<DiagnosePage />} />
+            <Route path="/ayurveda" element={<AyurvedaPage />} />
+            <Route path="/farmer" element={<FarmerModePage />} />
+          </Routes>
+        </Layout>
+        <Toaster richColors position="top-right" />
       </BrowserRouter>
-    </div>
+    </AppProvider>
   );
 }
-
-export default App;

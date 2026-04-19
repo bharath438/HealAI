@@ -1,34 +1,15 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.App { min-height: 100vh; }
+
+.hero-dots {
+  background-image: radial-gradient(rgba(14,165,233,0.18) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
-}
+.card-lift { transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+.card-lift:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -12px rgba(0,0,0,.12); }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
+.marquee { display: flex; gap: 3rem; animation: marq 30s linear infinite; white-space: nowrap; }
+@keyframes marq { from { transform: translateX(0);} to { transform: translateX(-50%);} }
 
-.App-link {
-    color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
+.gradient-sky { background-image: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 100%); }
+.gradient-moss { background-image: linear-gradient(135deg, #ecfccb 0%, #fef3c7 100%); }
