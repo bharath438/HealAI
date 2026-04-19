@@ -280,12 +280,18 @@ async def cost_estimate(req: CostEstimateRequest):
         alternatives.append("Jan Aushadhi stores offer generic medicines at 50-80% discount.")
         alternatives.append("Telemedicine (eSanjeevani) provides free consultations.")
 
-    # Matching hospitals
+    # Matching hospitals — infer mode from condition key
+    is_animal_cond = req.condition_key.startswith(("animal_", "pet_", "livestock_"))
     matching = []
     for h in HOSPITALS:
         if req.city and h["city"].lower() != req.city.lower():
             continue
         if req.hospital_type and h["type"] != req.hospital_type:
+            continue
+        is_vet = "veterinary" in h["specialties"]
+        if is_animal_cond and not is_vet:
+            continue
+        if not is_animal_cond and is_vet:
             continue
         matching.append(h)
 
