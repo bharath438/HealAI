@@ -8,6 +8,7 @@ import {
 import { Button } from "../components/ui/button";
 import { Checkbox } from "../components/ui/checkbox";
 import { ShieldCheck, ExternalLink, Sparkles, IndianRupee } from "lucide-react";
+import WhatsAppShareButton from "../components/WhatsAppShareButton";
 
 const STATES = ["Karnataka", "Maharashtra", "Delhi", "Tamil Nadu", "Telangana", "Andhra Pradesh", "Uttar Pradesh", "Other"];
 const CATEGORIES = ["BPL", "APL", "SECC", "rural_poor", "urban_worker", "farmer", "dairy_farmer", "central_govt_employee", "pensioner"];
@@ -97,6 +98,16 @@ export default function SchemesPage() {
               ))}
               {result.eligible.length === 0 && <li className="text-sm text-stone-600">No exact match. See "Maybe" list.</li>}
             </ul>
+            {result.eligible.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-amber-200">
+                <WhatsAppShareButton
+                  text={`I'm eligible for these Government Health Schemes (via HealAI):\n\n${result.eligible.map(s => `• ${s.name} — Up to ₹${new Intl.NumberFormat("en-IN").format(s.coverage_amount_inr)}\n  ${s.apply_link}`).join("\n\n")}\n\nCheck yours at HealAI.`}
+                  label="Share eligible schemes"
+                  testid="share-schemes-btn"
+                  className="h-9 text-xs"
+                />
+              </div>
+            )}
           </div>
           <div className="rounded-3xl bg-white border border-stone-200 p-5 sm:p-6" data-testid="maybe-list">
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-stone-500">Maybe · {result.maybe_eligible.length}</div>

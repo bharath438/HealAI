@@ -3,7 +3,7 @@ import axios from "axios";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
 
-export const api = axios.create({ baseURL: API, timeout: 60000 });
+export const api = axios.create({ baseURL: API, timeout: 60000, withCredentials: true });
 
 export const chatApi = (payload) => api.post("/chat", payload).then(r => r.data);
 export const analyzeSymptoms = (payload) => api.post("/symptoms/analyze", payload).then(r => r.data);
@@ -32,11 +32,28 @@ export const analyzeImage = (file, mode, context, language) => {
 export const uploadReport = (file, language) => {
   const fd = new FormData();
   fd.append("file", file);
-  fd.append("user_id", "guest");
   fd.append("language", language || "en");
-  return api.post("/reports/upload", fd, { headers: { "Content-Type": "multipart/form-data" }, timeout: 120000 })
+  return api.post("/reports/upload", fd, { headers: { "Content-Type": "multipart/form-data" }, timeout: 180000 })
     .then(r => r.data);
 };
 
-export const listReports = () => api.get("/reports", { params: { user_id: "guest" } }).then(r => r.data);
+export const listReports = () => api.get("/reports").then(r => r.data);
 export const deleteReport = (id) => api.delete(`/reports/${id}`).then(r => r.data);
+
+// Voice
+export const transcribeAudio = (blob, language) => {
+  const fd = new FormData();
+  fd.append("file", blob, `audio.webm`);
+  fd.append("language", language || "en");
+  return api.post("/voice/transcribe", fd, { headers: { "Content-Type": "multipart/form-data" }, timeout: 60000 })
+    .then(r => r.data);
+};
+
+export const ttsAudioUrl = async (text, voice = "alloy") => {
+  const r = await api.post("/voice/tts", { text, voice, model: "tts-1" }, { responseType: "blob", timeout: 60000 });
+  return URL.createObjectURL(r.data);
+};
+
+// WhatsApp share
+export const whatsappShare = (text, phone) =>
+  api.get("/whatsapp/share", { params: { text, phone } }).then(r => r.data);

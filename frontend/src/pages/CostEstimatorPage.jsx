@@ -7,6 +7,7 @@ import {
 import { Button } from "../components/ui/button";
 import { Calculator, Building2, Landmark, Sparkles, Loader2 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
+import WhatsAppShareButton from "../components/WhatsAppShareButton";
 
 const CITIES = ["Bangalore", "Mumbai", "Delhi", "Chennai", "Hyderabad", "Kolkata", "Pune", "Other"];
 
@@ -146,6 +147,15 @@ export default function CostEstimatorPage() {
                   <div className="text-xs text-stone-500 mt-1">Range: {fmt(b.min)} — {fmt(b.max)}</div>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-4 flex justify-end">
+              <WhatsAppShareButton
+                text={`HealAI cost estimate for ${currentCond?.label} in ${estimate.city || "any city"}:\n\n${estimate.breakdown.map(b => `${b.hospital_type.toUpperCase()}: avg ${fmt(b.avg)} (range ${fmt(b.min)}–${fmt(b.max)})`).join("\n")}\n\n${estimate.alternatives?.[0] || ""}\n\nCheck yours at HealAI.`}
+                label="Share estimate"
+                testid="share-cost-btn"
+                className="h-9 text-xs"
+              />
             </div>
           </div>
 

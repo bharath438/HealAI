@@ -5,6 +5,8 @@ import { Button } from "../components/ui/button";
 import { Textarea } from "../components/ui/textarea";
 import { Send, Loader2, AlertTriangle, Sparkles, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import VoiceRecorder from "../components/VoiceRecorder";
+import SpeakButton from "../components/SpeakButton";
 
 const QUICK_PROMPTS = {
   human: [
@@ -53,12 +55,8 @@ export default function ChatPage() {
       }
       setEmergency(res.emergency);
       setMessages((prev) => [...prev, {
-        role: "bot",
-        text: res.reply,
-        emergency: res.emergency,
-        disclaimer: res.disclaimer,
-        suggestions: res.suggestions,
-        ts: Date.now(),
+        role: "bot", text: res.reply, emergency: res.emergency,
+        disclaimer: res.disclaimer, suggestions: res.suggestions, ts: Date.now(),
       }]);
     } catch (e) {
       toast.error("Couldn't reach AI. Check your connection.");
@@ -66,11 +64,15 @@ export default function ChatPage() {
     } finally { setLoading(false); }
   };
 
+  const onTranscript = (t) => {
+    setInput(t);
+    // Auto-send after 200ms to feel natural
+    setTimeout(() => send(t), 150);
+  };
+
   const clear = () => {
-    setMessages([]);
-    setSessionId(null);
-    localStorage.removeItem("healai_chat");
-    localStorage.removeItem("healai_session");
+    setMessages([]); setSessionId(null);
+    localStorage.removeItem("healai_chat"); localStorage.removeItem("healai_session");
     setEmergency(false);
     toast.success("Conversation cleared");
   };
@@ -81,7 +83,7 @@ export default function ChatPage() {
         <div>
           <h1 className="font-heading text-3xl sm:text-4xl font-semibold tracking-tight">{t("chat")}</h1>
           <p className="text-stone-500 mt-1 text-sm">
-            Ask symptoms, costs, schemes · {mode === "human" ? "Human Health" : "Animal Health"} · {language.toUpperCase()}
+            Ask symptoms, costs, schemes · {mode === "human" ? "Human Health" : "Animal Health"} · {language.toUpperCase()} · 🎙 Voice ready
           </p>
         </div>
         <Button variant="ghost" size="sm" onClick={clear} data-testid="clear-chat-btn" className="rounded-full text-stone-500">
@@ -98,16 +100,14 @@ export default function ChatPage() {
         </div>
       )}
 
-      <div className={`rounded-3xl bg-white border border-stone-200 min-h-[55vh] max-h-[68vh] overflow-y-auto p-4 sm:p-6 space-y-4`} data-testid="chat-messages-area">
+      <div className="rounded-3xl bg-white border border-stone-200 min-h-[55vh] max-h-[68vh] overflow-y-auto p-4 sm:p-6 space-y-4" data-testid="chat-messages-area">
         {messages.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center text-center py-10">
             <div className={`w-14 h-14 rounded-2xl bg-${accent}-50 text-${accent}-700 grid place-items-center mb-4`}>
               <Sparkles className="w-7 h-7" />
             </div>
             <h3 className="font-heading text-xl font-medium">How can I help today?</h3>
-            <p className="text-stone-500 text-sm mt-1 max-w-md">
-              I'm HealAI — try one of these or ask anything.
-            </p>
+            <p className="text-stone-500 text-sm mt-1 max-w-md">I'm HealAI — try one of these or ask anything.</p>
             <div className="mt-6 grid sm:grid-cols-2 gap-2 max-w-2xl w-full">
               {QUICK_PROMPTS[mode].map((q, i) => (
                 <button
@@ -134,8 +134,11 @@ export default function ChatPage() {
               data-testid={`message-${m.role}-${i}`}
             >
               {m.text}
-              {m.role === "bot" && m.disclaimer && (
-                <div className="mt-3 pt-3 border-t border-stone-200/60 text-xs text-stone-500">{m.disclaimer}</div>
+              {m.role === "bot" && (
+                <div className="mt-3 pt-3 border-t border-stone-200/60 flex items-center gap-3">
+                  <SpeakButton text={m.text} />
+                  {m.disclaimer && <div className="text-[11px] text-stone-500">{m.disclaimer}</div>}
+                </div>
               )}
             </div>
           </div>
@@ -151,7 +154,8 @@ export default function ChatPage() {
         <div ref={endRef} />
       </div>
 
-      <div className="rounded-2xl border border-stone-200 bg-white p-3 sm:p-4 flex items-end gap-3" data-testid="chat-input-area">
+      <div className="rounded-2xl border border-stone-200 bg-white p-3 sm:p-4 flex items-end gap-2" data-testid="chat-input-area">
+        <VoiceRecorder language={language} onTranscript={onTranscript} accent={accent} />
         <Textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}

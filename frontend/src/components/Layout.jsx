@@ -1,13 +1,15 @@
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, MessagesSquare, Calculator, Hospital, ShieldCheck,
   Siren, FileHeart, ImagePlus, Leaf, Tractor, Globe, Heart, Dog,
+  Map as MapIcon, Activity, LogIn, LogOut, User,
 } from "lucide-react";
 import { useApp } from "../context/AppContext";
+import { useAuth } from "../context/AuthContext";
 import { Button } from "./ui/button";
 import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel,
 } from "./ui/dropdown-menu";
 
 const NAV = [
@@ -15,23 +17,29 @@ const NAV = [
   { to: "/chat", icon: MessagesSquare, key: "chat" },
   { to: "/cost", icon: Calculator, key: "cost" },
   { to: "/hospitals", icon: Hospital, key: "hospitals" },
+  { to: "/map", icon: MapIcon, key: "map" },
   { to: "/schemes", icon: ShieldCheck, key: "schemes" },
   { to: "/emergency", icon: Siren, key: "emergency" },
   { to: "/records", icon: FileHeart, key: "history" },
   { to: "/diagnose", icon: ImagePlus, key: "diagnose" },
+  { to: "/wearable", icon: Activity, key: "wearable" },
   { to: "/ayurveda", icon: Leaf, key: "ayurveda" },
   { to: "/farmer", icon: Tractor, key: "farmer" },
 ];
 
+const LABELS = { map: "Map", wearable: "Wearable" };
+
 export default function Layout({ children }) {
   const { mode, changeMode, language, changeLanguage, t, LANG_LABELS } = useApp();
+  const { user, login, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const accent = mode === "human" ? "sky" : "lime";
+  const labelOf = (k) => LABELS[k] || t(k);
 
   return (
     <div className={`App mode-${mode} min-h-screen bg-stone-50 text-stone-900`}>
-      {/* Top bar */}
       <header className="sticky top-0 z-40 border-b border-stone-200 bg-stone-50/85 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
           <NavLink to="/" className="flex items-center gap-2.5" data-testid="logo-home-link">
@@ -45,7 +53,6 @@ export default function Layout({ children }) {
           </NavLink>
 
           <div className="hidden md:flex items-center gap-1.5">
-            {/* Mode switch */}
             <div className="flex items-center rounded-full bg-stone-100 p-1" data-testid="mode-switch">
               <button
                 onClick={() => changeMode("human")}
@@ -63,7 +70,6 @@ export default function Layout({ children }) {
               </button>
             </div>
 
-            {/* Language */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="rounded-full" data-testid="language-switch-btn">
@@ -84,9 +90,44 @@ export default function Layout({ children }) {
                 <Siren className="w-4 h-4 mr-1.5" /> 108
               </Button>
             </NavLink>
+
+            {/* Auth */}
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="ml-2 flex items-center gap-2 rounded-full p-0.5 pl-0.5 pr-3 bg-stone-100 hover:bg-stone-200 transition-colors" data-testid="user-menu-btn">
+                    {user.picture ? (
+                      <img src={user.picture} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-sky-100 text-sky-700 grid place-items-center text-xs font-semibold">
+                        {(user.name || user.email || "U").slice(0, 1).toUpperCase()}
+                      </div>
+                    )}
+                    <span className="text-sm font-medium text-stone-800 hidden xl:inline">{(user.name || user.email).split(" ")[0]}</span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel className="text-xs">
+                    <div className="font-normal text-stone-500">Signed in as</div>
+                    <div className="truncate font-medium text-stone-800">{user.email}</div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate("/records")} data-testid="menu-records">
+                    <FileHeart className="w-4 h-4 mr-2" /> My records
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={async () => { await logout(); navigate("/"); }} data-testid="logout-btn">
+                    <LogOut className="w-4 h-4 mr-2" /> Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button onClick={login} variant="outline" size="sm" className="ml-1 rounded-full border-stone-300" data-testid="header-login-btn">
+                <LogIn className="w-4 h-4 mr-1.5" /> Sign in
+              </Button>
+            )}
           </div>
 
-          {/* Mobile: mode toggle */}
+          {/* Mobile */}
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => changeMode(mode === "human" ? "animal" : "human")}
@@ -107,13 +148,20 @@ export default function Layout({ children }) {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+            {user ? (
+              <button onClick={logout} className="rounded-full p-0.5" data-testid="mobile-user-btn">
+                {user.picture ? <img src={user.picture} alt="" className="w-7 h-7 rounded-full" /> : <User className="w-5 h-5 text-stone-600" />}
+              </button>
+            ) : (
+              <Button onClick={login} size="sm" variant="ghost" className="rounded-full px-2" data-testid="mobile-login-btn">
+                <LogIn className="w-4 h-4" />
+              </Button>
+            )}
           </div>
         </div>
       </header>
 
-      {/* Layout */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex gap-6">
-        {/* Sidebar */}
         <aside className="hidden lg:block w-56 shrink-0 sticky top-24 self-start" data-testid="sidebar-nav">
           <nav className="flex flex-col gap-0.5">
             {NAV.map((n) => {
@@ -131,7 +179,7 @@ export default function Layout({ children }) {
                   }`}
                 >
                   <Icon className="w-4 h-4" strokeWidth={1.7} />
-                  {t(n.key)}
+                  {labelOf(n.key)}
                 </NavLink>
               );
             })}
@@ -148,7 +196,6 @@ export default function Layout({ children }) {
         <main className="flex-1 min-w-0">{children}</main>
       </div>
 
-      {/* Bottom Mobile Nav */}
       <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t border-stone-200" data-testid="mobile-bottom-nav">
         <div className="grid grid-cols-5 px-1">
           {NAV.slice(0, 5).map((n) => {
@@ -162,7 +209,7 @@ export default function Layout({ children }) {
                 data-testid={`mobile-nav-${n.key}`}
               >
                 <Icon className="w-5 h-5" strokeWidth={1.7} />
-                {t(n.key)}
+                {labelOf(n.key)}
               </NavLink>
             );
           })}

@@ -6,6 +6,7 @@ HOSPITALS = [
     {
         "id": "h1", "name": "Apollo Hospitals", "city": "Bangalore", "state": "Karnataka",
         "type": "private", "rating": 4.6, "distance_km": 3.2,
+        "lat": 12.9352, "lng": 77.6146,
         "specialties": ["cardiology", "oncology", "orthopedics", "general"],
         "accepts_schemes": ["Ayushman Bharat"], "phone": "080-2630-4050",
         "image": "https://images.unsplash.com/photo-1769147555720-71fc71bfc216?w=400",
@@ -13,6 +14,7 @@ HOSPITALS = [
     {
         "id": "h2", "name": "Manipal Hospital Whitefield", "city": "Bangalore", "state": "Karnataka",
         "type": "private", "rating": 4.4, "distance_km": 5.8,
+        "lat": 12.9698, "lng": 77.7499,
         "specialties": ["cardiology", "neurology", "general", "pediatrics"],
         "accepts_schemes": ["Ayushman Bharat", "CGHS"], "phone": "080-2502-4444",
         "image": "https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=400",
@@ -20,6 +22,7 @@ HOSPITALS = [
     {
         "id": "h3", "name": "Victoria Hospital (Govt)", "city": "Bangalore", "state": "Karnataka",
         "type": "government", "rating": 3.9, "distance_km": 7.1,
+        "lat": 12.9630, "lng": 77.5738,
         "specialties": ["general", "orthopedics", "pediatrics", "gynecology"],
         "accepts_schemes": ["Ayushman Bharat", "Arogya Karnataka"], "phone": "080-2670-1150",
         "image": "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400",
@@ -27,6 +30,7 @@ HOSPITALS = [
     {
         "id": "h4", "name": "AIIMS Delhi", "city": "New Delhi", "state": "Delhi",
         "type": "government", "rating": 4.7, "distance_km": 2.4,
+        "lat": 28.5672, "lng": 77.2100,
         "specialties": ["cardiology", "oncology", "neurology", "general", "transplant"],
         "accepts_schemes": ["Ayushman Bharat", "CGHS"], "phone": "011-2658-8500",
         "image": "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=400",
@@ -34,6 +38,7 @@ HOSPITALS = [
     {
         "id": "h5", "name": "Fortis Mumbai", "city": "Mumbai", "state": "Maharashtra",
         "type": "private", "rating": 4.5, "distance_km": 4.3,
+        "lat": 19.1004, "lng": 72.8296,
         "specialties": ["cardiology", "orthopedics", "oncology"],
         "accepts_schemes": ["Mahatma Jyotiba Phule Jan Arogya"], "phone": "022-6754-2222",
         "image": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400",
@@ -41,6 +46,7 @@ HOSPITALS = [
     {
         "id": "h6", "name": "KIMS Hyderabad", "city": "Hyderabad", "state": "Telangana",
         "type": "private", "rating": 4.3, "distance_km": 6.5,
+        "lat": 17.4310, "lng": 78.4480,
         "specialties": ["cardiology", "general", "pediatrics"],
         "accepts_schemes": ["Ayushman Bharat", "Aarogyasri"], "phone": "040-4488-5000",
         "image": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400",
@@ -48,6 +54,7 @@ HOSPITALS = [
     {
         "id": "h7", "name": "Veterinary Hospital Hebbal", "city": "Bangalore", "state": "Karnataka",
         "type": "government", "rating": 4.1, "distance_km": 4.0,
+        "lat": 13.0358, "lng": 77.5970,
         "specialties": ["veterinary", "livestock", "pet_care"],
         "accepts_schemes": ["Pashu Kisan Credit Card"], "phone": "080-2341-1100",
         "image": "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
@@ -55,6 +62,7 @@ HOSPITALS = [
     {
         "id": "h8", "name": "Blue Cross Pet Hospital", "city": "Chennai", "state": "Tamil Nadu",
         "type": "private", "rating": 4.5, "distance_km": 5.2,
+        "lat": 13.0418, "lng": 80.2341,
         "specialties": ["veterinary", "pet_care", "emergency"],
         "accepts_schemes": [], "phone": "044-2235-1310",
         "image": "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400",
